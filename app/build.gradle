@@ -1,4 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'net.ltgt.errorprone'
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        // See https://github.com/tbroyer/gradle-errorprone-plugin/releases for version information
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.6.1'
+    }
+}
 
 android {
     compileSdkVersion 28
@@ -18,6 +29,14 @@ android {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.errorprone {
+        allErrorsAsWarnings = true
+        check('NullAway', net.ltgt.gradle.errorprone.CheckSeverity.WARN)
+        option('NullAway:AnnotatedPackages', 'com.example')
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
@@ -25,4 +44,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+
+    errorprone 'com.google.errorprone:error_prone_core:2.3.2'
+    errorproneJavac 'com.google.errorprone:javac:9-dev-r4023-3'
+    errorprone 'com.uber.nullaway:nullaway:0.6.4'
 }
