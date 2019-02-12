@@ -1,6 +1,5 @@
 package com.example.errorproneexample;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -21,18 +20,13 @@ public class ExampleInstrumentedTest {
     @Mock
     SampleDAO mockDAO;
 
-    int mockId = 1;
-
-    @Before
-    public void setup() {
+    @Test
+    public void testMockitoNullWarnings() {
         final CustomValue mockCustomValue = mock(CustomValue.class);
+        final int mockId = 1;
 
         when(mockCustomValue.getName()).thenReturn("Zach");
         when(mockDAO.getValueWithId(mockId)).thenReturn(mockCustomValue);   // warning reported here
-    }
-
-    @Test
-    public void testMockitoNullWarnings() {
         final SampleClass sampleClass = new SampleClass(mockDAO);
 
         sampleClass.doSomething();
