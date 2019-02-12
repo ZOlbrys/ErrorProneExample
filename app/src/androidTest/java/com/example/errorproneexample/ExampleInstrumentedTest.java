@@ -26,7 +26,7 @@ public class ExampleInstrumentedTest {
         final int mockId = 1;
 
         when(mockCustomValue.getName()).thenReturn("Zach");
-        when(mockDAO.getValueWithId(mockId)).thenReturn(mockCustomValue);   // warning reported here
+        when(mockDAO.getValueWithId(mockId)).thenReturn(mockCustomValue);
         final SampleClass sampleClass = new SampleClass(mockDAO);
 
         sampleClass.doSomething();
