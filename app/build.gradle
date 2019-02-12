@@ -48,4 +48,9 @@ dependencies {
     errorprone 'com.google.errorprone:error_prone_core:2.3.2'
     errorproneJavac 'com.google.errorprone:javac:9-dev-r4023-3'
     errorprone 'com.uber.nullaway:nullaway:0.6.4'
+
+    // Mockito
+    def mockitoVersion = '2.23.4'
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
 }
