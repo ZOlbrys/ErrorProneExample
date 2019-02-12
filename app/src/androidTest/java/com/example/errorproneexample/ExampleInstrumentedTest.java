@@ -1,27 +1,42 @@
 package com.example.errorproneexample;
 
-import android.content.Context;
-
-import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ExampleInstrumentedTest {
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+    @Mock
+    SampleDAO mockDAO;
 
-        assertEquals("com.example.errorproneexample", appContext.getPackageName());
+    int mockId = 1;
+
+    @Before
+    public void setup() {
+        final CustomValue mockCustomValue = mock(CustomValue.class);
+
+        when(mockCustomValue.getName()).thenReturn("Zach");
+        when(mockDAO.getValueWithId(mockId)).thenReturn(mockCustomValue);   // warning reported here
+    }
+
+    @Test
+    public void testMockitoNullWarnings() {
+        final SampleClass sampleClass = new SampleClass(mockDAO);
+
+        sampleClass.doSomething();
+
+        verify(mockDAO, times(1)).getValueWithId(mockId);
     }
 }
