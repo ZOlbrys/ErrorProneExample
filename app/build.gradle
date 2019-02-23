@@ -46,9 +46,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 
-    errorprone 'com.google.errorprone:error_prone_core:2.3.2'
+    errorprone 'com.google.errorprone:error_prone_core:2.3.3'
     errorproneJavac 'com.google.errorprone:javac:9-dev-r4023-3'
-    errorprone 'com.uber.nullaway:nullaway:0.6.4'
+    errorprone 'com.uber.nullaway:nullaway:0.6.5'
 
     // Mockito
     def mockitoVersion = '2.23.4'
